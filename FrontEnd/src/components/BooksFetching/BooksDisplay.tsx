@@ -1,4 +1,4 @@
-import { Grid, Image } from "@mantine/core";
+import { Image, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { CategoryBooks, Book } from "@/types/books";
 import * as APIs from "@/services/api";
@@ -45,27 +45,27 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
     <div>
       {Object.entries(books).map(([genre, genreBooks]) => (
         <div key={genre}>
-          <h2>{genre} Books</h2>
-          <ul>
+          <Title c="#557c3e" className="flex text-6xl py-4 mb-8">
+            {genre} Books
+          </Title>
+          <div className="relative grid grid-cols-3">
             {Object.entries(genreBooks).map(([id, book]) => {
               const bookDetails = book as Book;
               return (
-                <li key={id}>
-                  <Grid gutter={{base: 5, xs: 'md', md: 'xl', xl: 50}}>
-                    <Grid.Col span={4}>
+                <div key={id} className="flex">
                       <Image
                         src={bookDetails.img}
                         alt={`${bookDetails.title} cover`}
-                        style={{ width: "200px", marginRight: "10px" }}
+                        style={{ width: "60%", height: "90%", marginRight: "10px", marginBottom: "30px" }}
                       />
-                      <strong>{bookDetails.title}</strong> by{" "}
-                      {bookDetails.author} (ISBN: {bookDetails.ISBN})
-                    </Grid.Col>
-                  </Grid>
-                </li>
+                  <div className="">
+                    <strong className="flex text-lg">{bookDetails.title}</strong> by{" "}
+                    {bookDetails.author} (ISBN: {bookDetails.ISBN})
+                  </div>
+                </div>
               );
             })}
-          </ul>
+          </div>
         </div>
       ))}
     </div>

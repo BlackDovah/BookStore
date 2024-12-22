@@ -20,7 +20,7 @@ import { BooksDisplay } from "../BooksFetching/BooksDisplay";
 export function BooksPage() {
   const [opened, { open, close }] = useDisclosure();
   const [showFooter, setShowFooter] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>("comedy");
+  const [selectedCategory, setSelectedCategory] = useState<string>("All Genres");
   const [searchQuery, setSearchQuery] = useState<string>("");
   const navigate = useNavigate();
   const handleSearchOrCategory = () => {
