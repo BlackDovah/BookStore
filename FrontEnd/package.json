@@ -19,12 +19,13 @@
     "test": "npm run typecheck && npm run prettier && npm run lint && npm run vitest && npm run build",
     "storybook": "storybook dev -p 6006",
     "storybook:build": "storybook build",
-    "tail": "tailwindcss -i ~/Documents/GitHub/BookStore/src/input.css -o ~/Documents/GitHub/BookStore/src/output.css --watch"
+    "tail": "tailwindcss -i ~/Documents/GitHub/BookStore/FrontEnd/src/input.css -o ~/Documents/GitHub/BookStore/FrontEnd/src/output.css --watch"
   },
   "dependencies": {
     "@mantine/core": "7.14.3",
     "@mantine/hooks": "7.14.3",
     "@tabler/icons-react": "^3.24.0",
+    "axios": "^1.7.9",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-router-dom": "^7.0.1"
@@ -38,6 +39,7 @@
     "@testing-library/jest-dom": "^6.6.3",
     "@testing-library/react": "^16.0.1",
     "@testing-library/user-event": "^14.5.2",
+    "@types/axios": "^0.14.4",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react": "^4.3.4",
