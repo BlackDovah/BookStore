@@ -1,11 +1,6 @@
 import React from "react";
 import { TextInput } from "@mantine/core";
-
-interface TextInputProps {
-  searchQuery: string | number;
-  onSearchChange: (value: string) => void;
-  onSearchSubmit: () => void;
-}
+import { TextInputProps } from "@/types/books";
 
 export function Input({ searchQuery, onSearchChange, onSearchSubmit }: TextInputProps) {
   return (

@@ -1,11 +1,7 @@
 import { useState, useEffect } from "react";
 import { Menu, Button } from "@mantine/core";
 import { fetchBooks } from "@/services/api";
-
-interface GenreMenuProps {
-  selectedCategory: string | undefined;
-  onCategorySelect: (category: string) => void;
-}
+import { GenreMenuProps } from "@/types/books";
 
 export function GenreMenu({ selectedCategory, onCategorySelect }: GenreMenuProps) {
   const [books, setBooks] = useState<{ [key: string]: any }>({});

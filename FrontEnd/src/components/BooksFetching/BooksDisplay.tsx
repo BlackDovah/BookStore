@@ -1,12 +1,7 @@
 import { Image, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
-import { CategoryBooks, Book } from "@/types/books";
+import { CategoryBooks, Book, BooksDisplayProps } from "@/types/books";
 import * as APIs from "@/services/api";
-
-type BooksDisplayProps = {
-  search: string | number;
-  category: string;
-};
 
 export function BooksDisplay({ search, category }: BooksDisplayProps) {
   const [books, setBooks] = useState<CategoryBooks | Book[] | null>(null);

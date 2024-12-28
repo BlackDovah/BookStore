@@ -11,3 +11,19 @@ export interface Book {
     };
   }
   
+  export type BooksDisplayProps = {
+    search: string | number;
+    category: string;
+  };
+
+  export interface GenreMenuProps {
+    selectedCategory: string | undefined;
+    onCategorySelect: (category: string) => void;
+  }
+
+  export interface TextInputProps {
+    searchQuery: string | number;
+    onSearchChange: (value: string) => void;
+    onSearchSubmit: () => void;
+  }
+  
