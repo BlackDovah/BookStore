@@ -17,21 +17,32 @@ import { Input } from "../BooksFetching/TextInput";
 import { GenreMenu } from "../BooksFetching/GenereMenu";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { BooksDisplay } from "../BooksFetching/BooksDisplay";
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure();
   const [showFooter, setShowFooter] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>("Choose Genre");
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
   const [searchQuery, setSearchQuery] = useState<string>("");
+  const [submittedQuery, setSubmittedQuery] = useState<string | number>("");
   const navigate = useNavigate();
 
-  const handleSearchOrCategory = () => {
-    navigate(`/books`);
-    const search = encodeURIComponent(searchQuery);
-    const category = encodeURIComponent(selectedCategory);
-    <BooksDisplay category={category} search={search} />;
+  const handleSearch = () => {
+    setSubmittedQuery(searchQuery);
   };
+
+  const handleCategory = (category: string) => {
+    setSelectedCategory(category);
+  };
+
+  useEffect(() => {
+    if (selectedCategory) {
+      navigate(`/books?category=${encodeURIComponent(selectedCategory)}`);
+    }
+    
+    else if (submittedQuery !== "") {
+      navigate(`/books?keyword=${encodeURIComponent(submittedQuery)}`);
+    }
+  }, [selectedCategory, submittedQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -60,16 +71,13 @@ export function LandingPage() {
           <Input
             searchQuery={searchQuery}
             onSearchChange={(value) => setSearchQuery(value)}
-            onSearchSubmit={handleSearchOrCategory}
+            onSearchSubmit={() => handleSearch()}
           />
           <Divider my="md" size="lg" />
           <Text size="md">Pick by genre</Text>
           <GenreMenu
             selectedCategory={selectedCategory}
-            onCategorySelect={(category) => {
-              setSelectedCategory(category);
-              handleSearchOrCategory();
-            }}
+            onCategorySelect={handleCategory}
           />
           <Divider my="md" size="lg" />
           <ColorSchemeToggle />
@@ -84,18 +92,15 @@ export function LandingPage() {
       >
         <Text size="md">Search by keyword</Text>
         <Input
-          searchQuery={searchQuery}
-          onSearchChange={(value) => setSearchQuery(value)}
-          onSearchSubmit={handleSearchOrCategory}
-        />
+            searchQuery={searchQuery}
+            onSearchChange={(value) => setSearchQuery(value)}
+            onSearchSubmit={() => handleSearch()}
+          />
         <Divider my="md" size="lg" />
         <Text size="md">Pick by genre</Text>
         <GenreMenu
           selectedCategory={selectedCategory}
-          onCategorySelect={(category) => {
-            setSelectedCategory(category);
-            handleSearchOrCategory();
-          }}
+          onCategorySelect={handleCategory}
         />
         <Divider my="md" size="lg" />
         <ColorSchemeToggle />

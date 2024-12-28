@@ -3,7 +3,7 @@ import { Menu, Button } from "@mantine/core";
 import { fetchBooks } from "@/services/api";
 
 interface GenreMenuProps {
-  selectedCategory: string;
+  selectedCategory: string | undefined;
   onCategorySelect: (category: string) => void;
 }
 

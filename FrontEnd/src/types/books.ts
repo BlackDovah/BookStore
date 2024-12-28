@@ -2,7 +2,7 @@ export interface Book {
     title: string;
     author: string;
     ISBN: string;
-    img: string;
+    img?: string;
   }
   
   export interface CategoryBooks {

@@ -41,32 +41,28 @@ function searchBooks(criteria, value) {
     });
   });
   return results;
-}
+};
 
-function searchBooks(criteria, value) {
-  const results = [];
-  Object.keys(books).forEach(category => {
-    const categoryBooks = books[category];
-    Object.keys(categoryBooks).forEach(bookId => {
-      const book = categoryBooks[bookId];
-      if (categoryBooks[criteria].toLowerCase().includes(value.toLowerCase())) {
-        results.push({
-          ...book,
-          category,
-          id: bookId
-        });
-      }
-      else if (book[criteria].toLowerCase().includes(value.toLowerCase())) {
-        results.push({
-          ...book,
-          category,
-          id: bookId
-        });
+function searchBooksWithKeyWord(keyword) {
+  const filteredBooks = [];
+  Object.values(books).forEach((genreBooks) => {
+    Object.values(genreBooks).forEach((book) => {
+      const foundBook = book;
+      if (
+        foundBook.title
+          .toLowerCase()
+          .includes(keyword.toString().toLowerCase()) ||
+        foundBook.author
+          .toLowerCase()
+          .includes(keyword.toString().toLowerCase()) ||
+        foundBook.ISBN.includes(keyword.toString())
+      ) {
+        filteredBooks.push(foundBook);
       }
     });
-  });
-  return results;
-}
+  })
+  return filteredBooks;
+};
 
 public_users.post("/register", (req, res) => {
   const username = req.body.username;
@@ -111,7 +107,7 @@ public_users.get('/books/isbn/:isbn', (req, res) => {
   const get_books = new Promise((resolve, reject) => {
     const foundBooks = searchBooks('ISBN', isbn);
     if (foundBooks.length > 0) {
-      resolve({ message: `Book with ISBN ${isbn} found`, books: foundBooks });
+      resolve({ [isbn]: foundBooks });
     } else {
       reject(new Error(`Book with ISBN ${isbn} was not found`));
     }
@@ -135,7 +131,7 @@ public_users.get('/books/author/:author', (req, res) => {
   const get_books = new Promise((resolve, reject) => {
     const foundBooks = searchBooks('author', author);
     if (foundBooks.length > 0) {
-      resolve({ message: `Books by ${author} found`, books: foundBooks });
+      resolve({ [author]: foundBooks });
     } else {
       reject(new Error(`No books found for author ${author}`));
     }
@@ -159,7 +155,7 @@ public_users.get('/books/title/:title', (req, res) => {
   const get_books = new Promise((resolve, reject) => {
     const foundBooks = searchBooks('title', title);
     if (foundBooks.length > 0) {
-      resolve({ message: `Books with title "${title}" found`, books: foundBooks });
+      resolve({ [title]: foundBooks });
     } else {
       reject(new Error(`No books found with title "${title}"`));
     }
@@ -183,7 +179,7 @@ public_users.get('/books/category/:category', (req, res) => {
   const get_books = new Promise((resolve, reject) => {
     const foundBooks = books[category.charAt(0).toUpperCase() + category.slice(1)];
     if (Object.keys(foundBooks).length > 0) {
-      resolve({ message: `Books from category "${category}" found`, books: foundBooks });
+      resolve({ [category]: foundBooks });
     } else {
       reject(new Error(`No books found from category "${category}"`));
     }
@@ -193,6 +189,30 @@ public_users.get('/books/category/:category', (req, res) => {
     .then((data) => {
       res.status(200).json(data);
       console.log(`Books found from category: ${category}`);
+    })
+    .catch((error) => {
+      res.status(404).json({ message: error.message });
+      console.error("Error:", error.message);
+    });
+});
+
+// Get all books based on a key word
+public_users.get('/books/keyword/:keyword', (req, res) => {
+  const keyWord = req.params.keyword;
+
+  const get_books = new Promise((resolve, reject) => {
+    const foundBooks = searchBooksWithKeyWord(keyWord);
+    if (Object.keys(foundBooks).length > 0) {
+      resolve( foundBooks );
+    } else {
+      reject(new Error(`No books found with the keyword "${keyWord}"`));
+    }
+  });
+
+  get_books
+    .then((data) => {
+      res.status(200).json(data);
+      console.log(`Books found with the keyword: ${keyWord}`);
     })
     .catch((error) => {
       res.status(404).json({ message: error.message });

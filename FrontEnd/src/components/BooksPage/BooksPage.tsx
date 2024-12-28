@@ -14,17 +14,24 @@ import { ColorSchemeToggle } from "../ColorSchemeToggle/ColorSchemeToggle";
 import { Input } from "../BooksFetching/TextInput";
 import { GenreMenu } from "../BooksFetching/GenereMenu";
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { BooksDisplay } from "../BooksFetching/BooksDisplay";
 
 export function BooksPage() {
   const [opened, { open, close }] = useDisclosure();
   const [showFooter, setShowFooter] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string>("All Genres");
-  const [searchQuery, setSearchQuery] = useState<string>("");
-  const navigate = useNavigate();
-  const handleSearchOrCategory = () => {
-    navigate(`/books`);
+  const [searchParams] = useSearchParams();
+  const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get("category") || "All Genres");
+  const [searchQuery, setSearchQuery] = useState<string | number>(searchParams.get("keyword") || "");
+  const [submittedQuery, setSubmittedQuery] = useState<string | number>(searchParams.get("keyword") || "");
+
+  
+  const handleSearch = () => {
+    setSubmittedQuery(searchQuery);
+  };
+
+  const handleCategory = (category: string) => {
+    setSelectedCategory(category);
   };
 
   useEffect(() => {
@@ -54,16 +61,13 @@ export function BooksPage() {
           <Input
             searchQuery={searchQuery}
             onSearchChange={(value) => setSearchQuery(value)}
-            onSearchSubmit={handleSearchOrCategory}
+            onSearchSubmit={handleSearch}
           />
           <Divider my="md" size="lg" />
           <Text size="md">Pick by genre</Text>
           <GenreMenu
             selectedCategory={selectedCategory}
-            onCategorySelect={(category) => {
-              setSelectedCategory(category);
-              handleSearchOrCategory();
-            }}
+            onCategorySelect={handleCategory}
           />
           <Divider my="md" size="lg" />
           <ColorSchemeToggle />
@@ -78,24 +82,21 @@ export function BooksPage() {
       >
         <Text size="md">Search by keyword</Text>
         <Input
-          searchQuery={searchQuery}
-          onSearchChange={(value) => setSearchQuery(value)}
-          onSearchSubmit={handleSearchOrCategory}
-        />
+            searchQuery={searchQuery}
+            onSearchChange={(value) => setSearchQuery(value)}
+            onSearchSubmit={handleSearch}
+          />
         <Divider my="md" size="lg" />
         <Text size="md">Pick by genre</Text>
         <GenreMenu
-          selectedCategory={selectedCategory}
-          onCategorySelect={(category) => {
-            setSelectedCategory(category);
-            handleSearchOrCategory();
-          }}
-        />
+            selectedCategory={selectedCategory}
+            onCategorySelect={handleCategory}
+          />
         <Divider my="md" size="lg" />
         <ColorSchemeToggle />
       </Drawer>
       <AppShell.Main bg="#330000">
-        <BooksDisplay search={searchQuery} category={selectedCategory} />
+        <BooksDisplay search={submittedQuery} category={selectedCategory} />
       </AppShell.Main>
       <Transition
         mounted={showFooter}
