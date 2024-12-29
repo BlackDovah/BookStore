@@ -24,7 +24,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
           setError(null);
         }
       } catch (err) {
-        setError("Failed to load books");
+        setError("Sorry, this book doesn't seem to be in our collection yet. We apologize for the inconvenience.");
       }
     };
 

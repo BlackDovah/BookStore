@@ -63,7 +63,7 @@ export function LandingPage() {
         <Burger opened={opened} onClick={open} hiddenFrom="sm" size="sm" />
         <Center>
           <Link to="/">
-            <Title>BlackDovah's Book Store</Title>
+            <Title>Mightier Than The Sword</Title>
           </Link>
         </Center>
         <Group h="100%" px="md" visibleFrom="sm" className="justify-end">
