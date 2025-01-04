@@ -24,12 +24,12 @@ export const fetchBooksByTitle = async (title: string | number) => {
   return response.data;
 };
 
-export const fetchBooksByCategory = async (category: string | number) => {
+export const fetchBooksByCategory = async (category: string | undefined) => {
     const response = await api.get(`/books/category/${category}`);
     return response.data;
 };
 
-export const fetchBooksByKeyWord = async (KeyWord: string | number) => {
+export const fetchBooksByKeyWord = async (KeyWord: string | number | undefined) => {
   const response = await api.get(`/books/keyword/${KeyWord}`);
   return response.data;
 };

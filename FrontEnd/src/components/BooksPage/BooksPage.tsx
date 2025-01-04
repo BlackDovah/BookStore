@@ -11,7 +11,7 @@ import {
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
 import { ColorSchemeToggle } from "../ColorSchemeToggle/ColorSchemeToggle";
-import { Input } from "../BooksFetching/TextInput";
+import { Input } from "../BooksFetching/Input";
 import { GenreMenu } from "../BooksFetching/GenereMenu";
 import { useState, useEffect } from "react";
 import { Link, useSearchParams } from "react-router-dom";
@@ -21,11 +21,16 @@ export function BooksPage() {
   const [opened, { open, close }] = useDisclosure();
   const [showFooter, setShowFooter] = useState(false);
   const [searchParams] = useSearchParams();
-  const [selectedCategory, setSelectedCategory] = useState<string>(searchParams.get("category") || "All Genres");
-  const [searchQuery, setSearchQuery] = useState<string | number>(searchParams.get("keyword") || "");
-  const [submittedQuery, setSubmittedQuery] = useState<string | number>(searchParams.get("keyword") || "");
+  const [selectedCategory, setSelectedCategory] = useState<string>(
+    searchParams.get("category") || "Choose Genre"
+  );
+  const [searchQuery, setSearchQuery] = useState<string | number>(
+    searchParams.get("keyword") || ""
+  );
+  const [submittedQuery, setSubmittedQuery] = useState<string | number>(
+    searchParams.get("keyword") || ""
+  );
 
-  
   const handleSearch = () => {
     setSubmittedQuery(searchQuery);
   };
@@ -33,6 +38,18 @@ export function BooksPage() {
   const handleCategory = (category: string) => {
     setSelectedCategory(category);
   };
+
+  useEffect(() => {
+    if (selectedCategory !== "Choose Genre") {
+      setSubmittedQuery("");
+    }
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (submittedQuery !== "") {
+      setSelectedCategory("Choose Genre");
+    }
+  }, [submittedQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -50,7 +67,7 @@ export function BooksPage() {
   return (
     <AppShell header={{ height: 150 }} footer={{ height: 60 }} padding="md">
       <AppShell.Header bg="#f6b319" c="#557c3e">
-        <Burger opened={opened} onClick={open} hiddenFrom="sm" size="sm" />
+        <Burger opened={opened} onClick={open} hiddenFrom="sm" size="lg" />
         <Center>
           <Link to="/">
             <Title>Mightier Than The Sword</Title>
@@ -82,16 +99,16 @@ export function BooksPage() {
       >
         <Text size="md">Search by keyword</Text>
         <Input
-            searchQuery={searchQuery}
-            onSearchChange={(value) => setSearchQuery(value)}
-            onSearchSubmit={handleSearch}
-          />
+          searchQuery={searchQuery}
+          onSearchChange={(value) => setSearchQuery(value)}
+          onSearchSubmit={handleSearch}
+        />
         <Divider my="md" size="lg" />
         <Text size="md">Pick by genre</Text>
         <GenreMenu
-            selectedCategory={selectedCategory}
-            onCategorySelect={handleCategory}
-          />
+          selectedCategory={selectedCategory}
+          onCategorySelect={handleCategory}
+        />
         <Divider my="md" size="lg" />
         <ColorSchemeToggle />
       </Drawer>

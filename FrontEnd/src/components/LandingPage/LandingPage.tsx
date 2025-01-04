@@ -12,16 +12,18 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ColorSchemeToggle } from "../ColorSchemeToggle/ColorSchemeToggle";
-import { Input } from "../BooksFetching/TextInput";
+import { Input } from "../BooksFetching/Input";
 import { GenreMenu } from "../BooksFetching/GenereMenu";
 import { useState, useEffect } from "react";
 import { useNavigate, Link } from "react-router-dom";
+import { Advertisments } from "@/components/Advertisments/Advertisments";
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure();
   const [showFooter, setShowFooter] = useState(false);
-  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(undefined);
+  const [selectedCategory, setSelectedCategory] = useState<string | undefined>(
+    undefined
+  );
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [submittedQuery, setSubmittedQuery] = useState<string | number>("");
   const navigate = useNavigate();
@@ -37,9 +39,7 @@ export function LandingPage() {
   useEffect(() => {
     if (selectedCategory) {
       navigate(`/books?category=${encodeURIComponent(selectedCategory)}`);
-    }
-    
-    else if (submittedQuery !== "") {
+    } else if (submittedQuery !== "") {
       navigate(`/books?keyword=${encodeURIComponent(submittedQuery)}`);
     }
   }, [selectedCategory, submittedQuery]);
@@ -60,7 +60,7 @@ export function LandingPage() {
   return (
     <AppShell header={{ height: 150 }} footer={{ height: 60 }} padding="md">
       <AppShell.Header bg="#f6b319" c="#557c3e">
-        <Burger opened={opened} onClick={open} hiddenFrom="sm" size="sm" />
+        <Burger opened={opened} onClick={open} hiddenFrom="sm" size="lg" />
         <Center>
           <Link to="/">
             <Title>Mightier Than The Sword</Title>
@@ -80,7 +80,6 @@ export function LandingPage() {
             onCategorySelect={handleCategory}
           />
           <Divider my="md" size="lg" />
-          <ColorSchemeToggle />
         </Group>
       </AppShell.Header>
       <Drawer
@@ -92,10 +91,10 @@ export function LandingPage() {
       >
         <Text size="md">Search by keyword</Text>
         <Input
-            searchQuery={searchQuery}
-            onSearchChange={(value) => setSearchQuery(value)}
-            onSearchSubmit={() => handleSearch()}
-          />
+          searchQuery={searchQuery}
+          onSearchChange={(value) => setSearchQuery(value)}
+          onSearchSubmit={() => handleSearch()}
+        />
         <Divider my="md" size="lg" />
         <Text size="md">Pick by genre</Text>
         <GenreMenu
@@ -103,7 +102,6 @@ export function LandingPage() {
           onCategorySelect={handleCategory}
         />
         <Divider my="md" size="lg" />
-        <ColorSchemeToggle />
       </Drawer>
       <AppShell.Main bg="#330000">
         <AspectRatio
@@ -115,6 +113,10 @@ export function LandingPage() {
         >
           <BackgroundImage src="https://booksliced.com/books/wp-content/uploads/2019/01/iMAGE_Our_Top_20_Online_Bookstores_and_Where_to_Find_Every_Online_Bookstore_-768x510.jpg" />
         </AspectRatio>
+        <Title c="#557c3e" className="flex text-6xl mt-8 mb-8 justify-center">
+          Featured Books
+        </Title>
+        <Advertisments />
       </AppShell.Main>
       <Transition
         mounted={showFooter}

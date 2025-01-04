@@ -24,7 +24,9 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
           setError(null);
         }
       } catch (err) {
-        setError("Sorry, this book doesn't seem to be in our collection yet. We apologize for the inconvenience.");
+        setError(
+          "Sorry, either this book isn't in our collection yet, or no book or genre were selected. We apologize for the inconvenience."
+        );
       }
     };
 
@@ -42,7 +44,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
   if (Array.isArray(books)) {
     return (
       <div>
-        <Title c="#557c3e" className="flex text-6xl py-4 mb-8">
+        <Title c="#557c3e" className="flex text-6xl py-4 mb-8 justify-center">
           Search Results
         </Title>
         <div className="relative grid grid-cols-3">
@@ -55,6 +57,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
                   width: "60%",
                   height: "90%",
                   marginRight: "10px",
+                  marginLeft: "30px",
                   marginBottom: "30px",
                 }}
               />
@@ -73,7 +76,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
     <div>
       {Object.entries(books).map(([genre, genreBooks]) => (
         <div key={genre}>
-          <Title c="#557c3e" className="flex text-6xl py-4 mb-8">
+          <Title c="#557c3e" className="flex text-6xl py-4 mb-8 justify-center">
             {genre} Books
           </Title>
           <div className="relative grid grid-cols-3">
@@ -88,6 +91,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
                       width: "60%",
                       height: "90%",
                       marginRight: "10px",
+                      marginLeft: "30px",
                       marginBottom: "30px",
                     }}
                   />

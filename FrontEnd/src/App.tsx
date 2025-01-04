@@ -1,13 +1,18 @@
-import '@mantine/core/styles.css';
+import "@mantine/core/styles.css";
+import '@mantine/carousel/styles.css';
 
-import { MantineProvider } from '@mantine/core';
-import { Router } from './Router';
-import { theme } from './theme';
+import { MantineProvider } from "@mantine/core";
+import { Router } from "./Router";
+import { theme } from "./theme";
 import "./output.css";
+import { BooksContextProvider } from "./components/Contexts/BooksContext";
+
 export default function App() {
   return (
     <MantineProvider theme={theme}>
-      <Router />
+      <BooksContextProvider>
+        <Router />
+      </BooksContextProvider>
     </MantineProvider>
   );
 }
