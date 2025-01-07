@@ -1,43 +1,35 @@
 import { Carousel } from "@mantine/carousel";
-import {
-  Button,
-  Paper,
-  Text,
-  Title,
-  useMantineTheme,
-  Image,
-} from "@mantine/core";
+import { Paper, Text, Title, useMantineTheme } from "@mantine/core";
 import { useMediaQuery } from "@mantine/hooks";
 import { Book, CategoryBooks } from "@/types/books";
 import { fetchBooks } from "@/services/api";
 import { useState, useEffect } from "react";
+import { BookDetailsAndPurchase } from "@/components/BookDetailsAndPurchase/BookDetailsAndPurchase";
 import classes from "./Advertisments.module.css";
 
-function Card({ img, title, author }: Book) {
+function Card({ img, title, author, ISBN, cover }: Book) {
   return (
-    <Paper p="xl" bg="#330000">
-      <Image
-        src={img}
-        alt={`${title} cover`}
-        style={{
-          width: "60%",
-          height: "90%",
-          marginRight: "10px",
-          marginBottom: "30px",    
-        }}
-      />
-      <div>
-        <Text className={classes.author} size="lg">
-          {author}
-        </Text>
-        <Title order={3} className={classes.title}>
-          {title}
-        </Title>
-      </div>
-      <Button variant="white" color="dark">
-        Get this book
-      </Button>
-    </Paper>
+    <div className="flex relative">
+      <Paper
+        p="xl"
+        radius="md"
+        style={{ backgroundImage: `url(${img})`, height: "440px", width: "100%" }}
+      >
+        <div>
+          <Text className={classes.author} size="lg">
+            {author}
+          </Text>
+          <div className="absolute">
+            <Title order={3} className={classes.title}>
+              {title}
+            </Title>
+          </div>
+          <div className="absolute bottom-5">
+            <BookDetailsAndPurchase book={{ img, title, author, ISBN, cover }} />
+          </div>
+        </div>
+      </Paper>
+    </div>
   );
 }
 
@@ -66,7 +58,8 @@ export function Advertisments() {
 
   return (
     <Carousel
-      slideSize={{ base: "100%", sm: "25%" }}
+      h="500px"
+      slideSize={{ base: "100%", sm: "25%", height: "500" }}
       slideGap={{ base: 2, sm: "sm" }}
       align="start"
       slidesToScroll={mobile ? 1 : 2}

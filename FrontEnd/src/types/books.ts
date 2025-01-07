@@ -3,6 +3,8 @@ export interface Book {
   author: string;
   ISBN: string;
   img: string;
+  cover?: string;
+  price?: number;
 }
 
 export interface CategoryBooks {
@@ -40,4 +42,19 @@ export interface CardProps {
   image: string;
   title: string;
   category: string;
+}
+
+export interface BookDetailsAndPurchaseProps {
+  book: Book;
+}
+
+export interface FormValues {
+  name: string;
+  cardNumber: string;
+  expiryMonth: string;
+  expiryYear: string;
+  cvv: string;
+  email: string;
+  quantity: number;
+  deliveryMethod: "digital" | "physical";
 }

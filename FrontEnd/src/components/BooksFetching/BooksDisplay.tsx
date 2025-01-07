@@ -2,6 +2,7 @@ import { Image, Title } from "@mantine/core";
 import { useEffect, useState } from "react";
 import { CategoryBooks, Book, BooksDisplayProps } from "@/types/books";
 import * as APIs from "@/services/api";
+import { BookDetailsAndPurchase } from "@/components/BookDetailsAndPurchase/BookDetailsAndPurchase";
 
 export function BooksDisplay({ search, category }: BooksDisplayProps) {
   const [books, setBooks] = useState<CategoryBooks | Book[] | null>(null);
@@ -64,6 +65,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
               <div className="">
                 <strong className="flex text-lg">{book.title}</strong> by{" "}
                 {book.author} (ISBN: {book.ISBN})
+                <BookDetailsAndPurchase book={book} />
               </div>
             </div>
           ))}
@@ -100,6 +102,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
                       {bookDetails.title}
                     </strong>{" "}
                     by {bookDetails.author} (ISBN: {bookDetails.ISBN})
+                    <BookDetailsAndPurchase book={book} />
                   </div>
                 </div>
               );

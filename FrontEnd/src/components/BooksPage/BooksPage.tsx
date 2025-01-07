@@ -10,7 +10,6 @@ import {
   Transition,
 } from "@mantine/core";
 import { useDisclosure } from "@mantine/hooks";
-import { ColorSchemeToggle } from "../ColorSchemeToggle/ColorSchemeToggle";
 import { Input } from "../BooksFetching/Input";
 import { GenreMenu } from "../BooksFetching/GenereMenu";
 import { useState, useEffect } from "react";
@@ -48,6 +47,9 @@ export function BooksPage() {
   useEffect(() => {
     if (submittedQuery !== "") {
       setSelectedCategory("Choose Genre");
+    }
+    if (submittedQuery === "" && selectedCategory === "Choose Genre") {
+      setSelectedCategory("All Genres");
     }
   }, [submittedQuery]);
 
@@ -87,7 +89,6 @@ export function BooksPage() {
             onCategorySelect={handleCategory}
           />
           <Divider my="md" size="lg" />
-          <ColorSchemeToggle />
         </Group>
       </AppShell.Header>
       <Drawer
@@ -110,7 +111,6 @@ export function BooksPage() {
           onCategorySelect={handleCategory}
         />
         <Divider my="md" size="lg" />
-        <ColorSchemeToggle />
       </Drawer>
       <AppShell.Main bg="#330000">
         <BooksDisplay search={submittedQuery} category={selectedCategory} />
