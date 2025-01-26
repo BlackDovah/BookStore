@@ -53,7 +53,7 @@ export function Advertisments() {
   }, []);
 
   const theme = useMantineTheme();
-  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.sm})`);
+  const mobile = useMediaQuery(`(max-width: ${theme.breakpoints.md})`);
   const slides = Object.values(books).map((items) =>
     Object.values(items).map((item) => (
       <Carousel.Slide key={item.title}>
@@ -65,7 +65,7 @@ export function Advertisments() {
   return (
     <Carousel
       h="500px"
-      slideSize={{ base: "100%", sm: "25%", height: "500" }}
+      slideSize={{ base: "100%", md: "25%", height: "500" }}
       slideGap={{ base: 2, sm: "sm" }}
       align="start"
       slidesToScroll={mobile ? 1 : 2}
