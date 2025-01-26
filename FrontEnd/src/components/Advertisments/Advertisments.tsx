@@ -7,13 +7,17 @@ import { useState, useEffect } from "react";
 import { BookDetailsAndPurchase } from "@/components/BookDetailsAndPurchase/BookDetailsAndPurchase";
 import classes from "./Advertisments.module.css";
 
-function Card({ img, title, author, ISBN, cover }: Book) {
+function Card({ img, title, author, ISBN, cover, field }: Book) {
   return (
     <div className="flex relative">
       <Paper
         p="xl"
         radius="md"
-        style={{ backgroundImage: `url(${img})`, height: "440px", width: "100%" }}
+        style={{
+          backgroundImage: `url(${img})`,
+          height: "440px",
+          width: "100%",
+        }}
       >
         <div>
           <Text className={classes.author} size="lg">
@@ -25,7 +29,9 @@ function Card({ img, title, author, ISBN, cover }: Book) {
             </Title>
           </div>
           <div className="absolute bottom-5">
-            <BookDetailsAndPurchase book={{ img, title, author, ISBN, cover }} />
+            <BookDetailsAndPurchase
+              book={{ img, title, author, ISBN, cover, field }}
+            />
           </div>
         </div>
       </Paper>

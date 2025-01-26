@@ -5,6 +5,7 @@ export interface Book {
   img: string;
   cover?: string;
   price?: number;
+  field: keyof Book;
 }
 
 export interface CategoryBooks {
@@ -18,15 +19,15 @@ export type BooksDisplayProps = {
   category: string | undefined;
 };
 
-export interface GenreMenuProps {
-  selectedCategory: string | undefined;
-  onCategorySelect: (category: string) => void;
-}
-
 export interface TextInputProps {
   searchQuery: string | number | undefined;
   onSearchChange: (value: string) => void;
-  onSearchSubmit: () => void;
+  onSearchSubmit: (search: string | number | undefined) => void;
+}
+
+export interface GenreMenuProps {
+  selectedCategory: string | undefined;
+  onCategorySelect: (category: string) => void;
 }
 
 export type BooksContextProps = {

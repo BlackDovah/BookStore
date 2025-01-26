@@ -43,21 +43,42 @@ function searchBooks(criteria, value) {
   return results;
 };
 
+// function searchBooksWithKeyWord(keyword) {
+//   const filteredBooks = [];
+//   Object.values(books).forEach((genreBooks) => {
+//     Object.values(genreBooks).forEach((book) => {
+//       const foundBook = book;
+//       if (
+//         foundBook.title
+//           .toLowerCase()
+//           .includes(keyword.toString().toLowerCase()) ||
+//         foundBook.author
+//           .toLowerCase()
+//           .includes(keyword.toString().toLowerCase()) ||
+//         foundBook.ISBN.includes(keyword.toString())
+//       ) {
+//         filteredBooks.push(foundBook);
+//       }
+//     });
+//   })
+//   return filteredBooks;
+// };
+
 function searchBooksWithKeyWord(keyword) {
   const filteredBooks = [];
+  const regex = new RegExp(`(${keyword})`, "i");
   Object.values(books).forEach((genreBooks) => {
     Object.values(genreBooks).forEach((book) => {
       const foundBook = book;
-      if (
-        foundBook.title
-          .toLowerCase()
-          .includes(keyword.toString().toLowerCase()) ||
-        foundBook.author
-          .toLowerCase()
-          .includes(keyword.toString().toLowerCase()) ||
-        foundBook.ISBN.includes(keyword.toString())
-      ) {
-        filteredBooks.push(foundBook);
+      if (regex.test(foundBook.title)) {
+        foundBook.field = 'title';
+        filteredBooks.push( foundBook );
+      } else if (regex.test(foundBook.author)) {
+        foundBook.field = 'author';
+        filteredBooks.push( foundBook );
+      } else if (regex.test(foundBook.ISBN)) {
+        foundBook.field = 'ISBN';
+        filteredBooks.push( foundBook );
       }
     });
   })

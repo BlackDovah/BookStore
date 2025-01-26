@@ -15,8 +15,10 @@ import { useDisclosure } from "@mantine/hooks";
 import { Input } from "../BooksFetching/Input";
 import { GenreMenu } from "../BooksFetching/GenereMenu";
 import { useState, useEffect } from "react";
-import { useNavigate, Link } from "react-router-dom";
+// import { useNavigate, Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { Advertisments } from "@/components/Advertisments/Advertisments";
+import { BooksDisplay } from "../BooksFetching/BooksDisplay";
 
 export function LandingPage() {
   const [opened, { open, close }] = useDisclosure();
@@ -25,24 +27,39 @@ export function LandingPage() {
     undefined
   );
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [submittedQuery, setSubmittedQuery] = useState<string | number>("");
-  const navigate = useNavigate();
+  const [submittedQuery, setSubmittedQuery] = useState<string | number | undefined>("");
+  // const navigate = useNavigate();
 
-  const handleSearch = () => {
-    setSubmittedQuery(searchQuery);
+  const handleSearch = (search: string | number | undefined) => {
+    setSubmittedQuery(search);
   };
 
   const handleCategory = (category: string) => {
     setSelectedCategory(category);
   };
 
+  // useEffect(() => {
+  //   if (selectedCategory) {
+  //     navigate(`/books?category=${encodeURIComponent(selectedCategory)}`);
+  //   } else if (submittedQuery !== "") {
+  //     navigate(`/books?keyword=${encodeURIComponent(submittedQuery)}`);
+  //   }
+  // }, [selectedCategory, submittedQuery]);
+
   useEffect(() => {
-    if (selectedCategory) {
-      navigate(`/books?category=${encodeURIComponent(selectedCategory)}`);
-    } else if (submittedQuery !== "") {
-      navigate(`/books?keyword=${encodeURIComponent(submittedQuery)}`);
+    if (selectedCategory !== "Choose Genre") {
+      setSubmittedQuery("");
     }
-  }, [selectedCategory, submittedQuery]);
+  }, [selectedCategory]);
+
+  useEffect(() => {
+    if (submittedQuery !== "") {
+      setSelectedCategory("Choose Genre");
+    }
+    if (submittedQuery === "" && selectedCategory === "Choose Genre") {
+      setSelectedCategory("All Genres");
+    }
+  }, [submittedQuery]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -62,16 +79,26 @@ export function LandingPage() {
       <AppShell.Header bg="#f6b319" c="#557c3e">
         <Burger opened={opened} onClick={open} hiddenFrom="sm" size="lg" />
         <Center>
-          <Link to="/">
+          {/* <Link to="/">
             <Title>Mightier Than The Sword</Title>
-          </Link>
+          </Link> */}
+          <button
+            type="button"
+            onClick={() => {
+              setSearchQuery("");
+              setSubmittedQuery("");
+              setSelectedCategory(undefined);
+            }}
+          >
+            <Title>Mightier Than The Sword</Title>
+          </button>
         </Center>
         <Group h="100%" px="md" visibleFrom="sm" className="justify-end">
           <Text size="md">Search by keyword</Text>
           <Input
             searchQuery={searchQuery}
             onSearchChange={(value) => setSearchQuery(value)}
-            onSearchSubmit={() => handleSearch()}
+            onSearchSubmit={handleSearch}
           />
           <Divider my="md" size="lg" />
           <Text size="md">Pick by genre</Text>
@@ -93,7 +120,7 @@ export function LandingPage() {
         <Input
           searchQuery={searchQuery}
           onSearchChange={(value) => setSearchQuery(value)}
-          onSearchSubmit={() => handleSearch()}
+          onSearchSubmit={handleSearch}
         />
         <Divider my="md" size="lg" />
         <Text size="md">Pick by genre</Text>
@@ -104,19 +131,28 @@ export function LandingPage() {
         <Divider my="md" size="lg" />
       </Drawer>
       <AppShell.Main bg="#330000">
-        <AspectRatio
-          ratio={16 / 9}
-          maw="80%"
-          mah="80%"
-          mx="auto"
-          pos="relative"
-        >
-          <BackgroundImage src="https://booksliced.com/books/wp-content/uploads/2019/01/iMAGE_Our_Top_20_Online_Bookstores_and_Where_to_Find_Every_Online_Bookstore_-768x510.jpg" />
-        </AspectRatio>
-        <Title c="#557c3e" className="flex text-6xl mt-8 mb-8 justify-center">
-          Featured Books
-        </Title>
-        <Advertisments />
+        {submittedQuery !== "" || selectedCategory !== undefined ? (
+          <BooksDisplay search={submittedQuery} category={selectedCategory} />
+        ) : (
+          <>
+            <AspectRatio
+              ratio={16 / 9}
+              maw="80%"
+              mah="80%"
+              mx="auto"
+              pos="relative"
+            >
+              <BackgroundImage src="https://booksliced.com/books/wp-content/uploads/2019/01/iMAGE_Our_Top_20_Online_Bookstores_and_Where_to_Find_Every_Online_Bookstore_-768x510.jpg" />
+            </AspectRatio>
+            <Title
+              c="#557c3e"
+              className="flex text-6xl mt-8 mb-8 justify-center"
+            >
+              Featured Books
+            </Title>
+            <Advertisments />
+          </>
+        )}
       </AppShell.Main>
       <Transition
         mounted={showFooter}

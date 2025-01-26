@@ -3,7 +3,10 @@ import { Menu, Button } from "@mantine/core";
 import { fetchBooks } from "@/services/api";
 import { CategoryBooks, GenreMenuProps } from "@/types/books";
 
-export function GenreMenu({ selectedCategory, onCategorySelect }: GenreMenuProps) {
+export function GenreMenu({
+  selectedCategory,
+  onCategorySelect,
+}: GenreMenuProps) {
   const [books, setBooks] = useState<CategoryBooks>({});
   const [loading, setLoading] = useState(true);
 

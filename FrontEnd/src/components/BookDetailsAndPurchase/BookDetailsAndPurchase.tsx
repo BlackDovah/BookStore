@@ -17,7 +17,7 @@ import {
 import { useForm } from "@mantine/form";
 import { useDisclosure } from "@mantine/hooks";
 import { IconCreditCard, IconAlertCircle } from "@tabler/icons-react";
-import { BookDetailsAndPurchaseProps, FormValues } from "@/types/books"
+import { BookDetailsAndPurchaseProps, FormValues } from "@/types/books";
 
 export function BookDetailsAndPurchase({ book }: BookDetailsAndPurchaseProps) {
   const [opened, { open, close }] = useDisclosure(false);
@@ -115,7 +115,8 @@ export function BookDetailsAndPurchase({ book }: BookDetailsAndPurchaseProps) {
                 <Stack gap="xs">
                   <Title order={3}>{book.title}</Title>
                   <Text size="sm" color="dimmed">
-                    By {book.author} <span className="italic">- {book.cover}</span>
+                    By {book.author}{" "}
+                    <span className="italic">- {book.cover}</span>
                   </Text>
                   <Group gap="xs">
                     <NumberInput
@@ -217,4 +218,4 @@ export function BookDetailsAndPurchase({ book }: BookDetailsAndPurchaseProps) {
       </Modal>
     </>
   );
-};
+}
