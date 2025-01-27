@@ -45,7 +45,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
   if (Array.isArray(books)) {
     return (
       <div>
-        <Title c="#557c3e" className="flex text-6xl py-4 mb-8 justify-center">
+        <Title c="#557c3e" className="flex text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl py-4 mb-8 justify-center">
           Search Results
         </Title>
         <div className="relative grid grid-cols-3">
@@ -78,7 +78,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
     <div>
       {Object.entries(books).map(([genre, genreBooks]) => (
         <div key={genre}>
-          <Title c="#557c3e" className="flex text-6xl py-4 mb-8 justify-center">
+          <Title c="#557c3e" className="flex text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl py-4 mb-8 justify-center">
             {genre} Books
           </Title>
           <div className="relative grid grid-cols-3">

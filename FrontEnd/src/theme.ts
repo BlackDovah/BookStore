@@ -1,4 +1,4 @@
-import { MantineThemeOverride, MantineTheme, Button } from '@mantine/core';
+import { MantineThemeOverride, Button } from '@mantine/core';
 
 export const theme: MantineThemeOverride = {
   fontFamily: 'Open Sans, sans-serif',
@@ -25,21 +25,5 @@ export const theme: MantineThemeOverride = {
         inner: { fontSize: 20 },
       },
     }),
-    Title: {
-      styles: (theme: MantineTheme) => ({
-        root: {
-          fontSize: theme.fontSizes.xxl,
-          [`@media (max-width: ${theme.breakpoints.lg})`]: {
-            fontSize: theme.fontSizes.xl,
-          },
-          [`@media (max-width: ${theme.breakpoints.md})`]: {
-            fontSize: theme.fontSizes.lg,
-          },
-          [`@media (max-width: ${theme.breakpoints.sm})`]: {
-            fontSize: theme.fontSizes.md,
-          },
-        },
-      }),
-    },
   },
 };

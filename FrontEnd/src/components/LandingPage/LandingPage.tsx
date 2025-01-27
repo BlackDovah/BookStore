@@ -90,7 +90,7 @@ export function LandingPage() {
               setSelectedCategory(undefined);
             }}
           >
-            <Title>Mightier Than The Sword</Title>
+            <Title className="text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl">Mightier Than The Sword</Title>
           </button>
         </Center>
         <Group h="100%" px="md" visibleFrom="sm" className="justify-end">
@@ -146,7 +146,7 @@ export function LandingPage() {
             </AspectRatio>
             <Title
               c="#557c3e"
-              className="flex text-6xl mt-8 mb-8 justify-center"
+              className="flex text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl mt-8 mb-8 justify-center"
             >
               Featured Books
             </Title>
