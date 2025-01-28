@@ -4,9 +4,8 @@ import {
   Group,
   Text,
   Divider,
-  BackgroundImage,
+  Image,
   Center,
-  AspectRatio,
   Drawer,
   Title,
   Transition,
@@ -27,7 +26,9 @@ export function LandingPage() {
     undefined
   );
   const [searchQuery, setSearchQuery] = useState<string>("");
-  const [submittedQuery, setSubmittedQuery] = useState<string | number | undefined>("");
+  const [submittedQuery, setSubmittedQuery] = useState<
+    string | number | undefined
+  >("");
   // const navigate = useNavigate();
 
   const handleSearch = (search: string | number | undefined) => {
@@ -90,7 +91,9 @@ export function LandingPage() {
               setSelectedCategory(undefined);
             }}
           >
-            <Title className="text-4xl lg:text-3xl max-md:text-2xl">Mightier Than The Sword</Title>
+            <Title className="text-4xl lg:text-3xl max-md:text-2xl">
+              Mightier Than The Sword
+            </Title>
           </button>
         </Center>
         <Group h="100%" px="md" visibleFrom="md" className="justify-end">
@@ -135,18 +138,14 @@ export function LandingPage() {
           <BooksDisplay search={submittedQuery} category={selectedCategory} />
         ) : (
           <>
-            <AspectRatio
-              ratio={16 / 9}
-              maw="80%"
-              mah="80%"
-              mx="auto"
-              pos="relative"
-            >
-              <BackgroundImage src="https://booksliced.com/books/wp-content/uploads/2019/01/iMAGE_Our_Top_20_Online_Bookstores_and_Where_to_Find_Every_Online_Bookstore_-768x510.jpg" />
-            </AspectRatio>
+            <Image
+              src="https://booksliced.com/books/wp-content/uploads/2019/01/iMAGE_Our_Top_20_Online_Bookstores_and_Where_to_Find_Every_Online_Bookstore_-768x510.jpg"
+              fit="cover"
+              className="w-full h-full"
+            />
             <Title
               c="#557c3e"
-              className="flex text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl mt-8 mb-8 justify-center"
+              className="text-4xl lg:text-3xl max-md:text-2xl mt-8 mb-8 justify-center"
             >
               Featured Books
             </Title>

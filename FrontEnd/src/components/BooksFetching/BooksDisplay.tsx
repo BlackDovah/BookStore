@@ -51,22 +51,19 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
         >
           Search Results
         </Title>
-        <div className="relative grid grid-cols-3">
+        <div className="relative">
           {books.map((book, index) => (
             <div key={index} className="flex flex-row gap-4 items-start">
               <Image
                 src={book.img}
                 alt={`${book.title} cover`}
-                style={{
-                  width: "60%",
-                  height: "90%",
-                  marginRight: "10px",
-                  marginLeft: "30px",
-                  marginBottom: "30px",
-                }}
+                className="w-[60%] h-[600px] max-md:h-[400px] mr-2.5 ml-8 mb-8"
               />
-              <div className="flex flex-col">
-                <strong className="text-lg">{book.title}</strong> by
+              <div className="flex flex-col lg:text-sm xl:text-md">
+                <strong className="text-base lg:text-md xl:text-lg">
+                  {book.title}
+                </strong>{" "}
+                by
                 {` "${book.author}" `}
                 (ISBN: {book.ISBN})
                 <BookDetailsAndPurchase book={book} />
