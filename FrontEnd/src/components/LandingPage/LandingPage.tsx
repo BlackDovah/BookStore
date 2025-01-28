@@ -77,7 +77,7 @@ export function LandingPage() {
   return (
     <AppShell header={{ height: 150 }} footer={{ height: 60 }} padding="md">
       <AppShell.Header bg="#f6b319" c="#557c3e">
-        <Burger opened={opened} onClick={open} hiddenFrom="sm" size="lg" />
+        <Burger opened={opened} onClick={open} hiddenFrom="md" size="lg" />
         <Center>
           {/* <Link to="/">
             <Title>Mightier Than The Sword</Title>
@@ -90,10 +90,10 @@ export function LandingPage() {
               setSelectedCategory(undefined);
             }}
           >
-            <Title className="text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl">Mightier Than The Sword</Title>
+            <Title className="text-4xl lg:text-3xl max-md:text-2xl">Mightier Than The Sword</Title>
           </button>
         </Center>
-        <Group h="100%" px="md" visibleFrom="sm" className="justify-end">
+        <Group h="100%" px="md" visibleFrom="md" className="justify-end">
           <Text size="md">Search by keyword</Text>
           <Input
             searchQuery={searchQuery}

@@ -45,12 +45,15 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
   if (Array.isArray(books)) {
     return (
       <div>
-        <Title c="#557c3e" className="flex text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl py-4 mb-8 justify-center">
+        <Title
+          c="#557c3e"
+          className="flex text-4xl lg:text-3xl max-md:text-2xl py-4 mb-8 justify-center"
+        >
           Search Results
         </Title>
         <div className="relative grid grid-cols-3">
           {books.map((book, index) => (
-            <div key={index} className="flex">
+            <div key={index} className="flex flex-row gap-4 items-start">
               <Image
                 src={book.img}
                 alt={`${book.title} cover`}
@@ -62,9 +65,10 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
                   marginBottom: "30px",
                 }}
               />
-              <div className="">
-                <strong className="flex text-lg">{book.title}</strong> by{" "}
-                {book.author} (ISBN: {book.ISBN})
+              <div className="flex flex-col">
+                <strong className="text-lg">{book.title}</strong> by
+                {` "${book.author}" `}
+                (ISBN: {book.ISBN})
                 <BookDetailsAndPurchase book={book} />
               </div>
             </div>
@@ -78,31 +82,32 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
     <div>
       {Object.entries(books).map(([genre, genreBooks]) => (
         <div key={genre}>
-          <Title c="#557c3e" className="flex text-4xl lg:text-3xl md:text-2xl sm:text-xl xsm:text-xl py-4 mb-8 justify-center">
+          <Title
+            c="#557c3e"
+            className="flex text-4xl lg:text-3xl max-md:text-2xl py-4 mb-8 justify-center"
+          >
             {genre} Books
           </Title>
-          <div className="relative grid grid-cols-3">
+          <div className="relative grid grid-cols-1 2xl:grid-cols-3 2xl:auto-rows-auto">
             {Object.entries(genreBooks).map(([id, book]) => {
               const bookDetails = book as Book;
               return (
-                <div key={id} className="flex">
-                  <Image
-                    src={bookDetails.img}
-                    alt={`${bookDetails.title} cover`}
-                    style={{
-                      width: "60%",
-                      height: "90%",
-                      marginRight: "10px",
-                      marginLeft: "30px",
-                      marginBottom: "30px",
-                    }}
-                  />
-                  <div className="">
-                    <strong className="flex text-lg">
-                      {bookDetails.title}
-                    </strong>{" "}
-                    by {bookDetails.author} (ISBN: {bookDetails.ISBN})
-                    <BookDetailsAndPurchase book={book} />
+                <div className="">
+                  <div key={id} className="flex flex-row items-start">
+                    <Image
+                      src={bookDetails.img}
+                      alt={`${bookDetails.title} cover`}
+                      className="w-[60%] h-[600px] max-md:h-[400px] 2xl:h-[90%] mr-2.5 ml-8 mb-8"
+                    />
+
+                    <div className="flex flex-col lg:text-sm xl:text-md">
+                      <strong className="text-base lg:text-md xl:text-lg">
+                        {bookDetails.title}
+                      </strong>{" "}
+                      by
+                      {` "${bookDetails.author}" `} (ISBN: {bookDetails.ISBN})
+                      <BookDetailsAndPurchase book={book} />
+                    </div>
                   </div>
                 </div>
               );

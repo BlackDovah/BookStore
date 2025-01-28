@@ -574,6 +574,14 @@ video {
   margin-bottom: 2rem;
 }
 
+.ml-8 {
+  margin-left: 2rem;
+}
+
+.mr-2\.5 {
+  margin-right: 0.625rem;
+}
+
 .mt-8 {
   margin-top: 2rem;
 }
@@ -586,12 +594,85 @@ video {
   display: grid;
 }
 
+.size-5 {
+  width: 1.25rem;
+  height: 1.25rem;
+}
+
+.h-\[20\%\] {
+  height: 20%;
+}
+
+.h-full {
+  height: 100%;
+}
+
+.h-1 {
+  height: 0.25rem;
+}
+
+.h-1\/5 {
+  height: 20%;
+}
+
+.h-60 {
+  height: 15rem;
+}
+
+.h-2\/5 {
+  height: 40%;
+}
+
+.h-\[300px\] {
+  height: 300px;
+}
+
+.h-\[400px\] {
+  height: 400px;
+}
+
+.h-\[600px\] {
+  height: 600px;
+}
+
+.w-full {
+  width: 100%;
+}
+
+.w-\[60\%\] {
+  width: 60%;
+}
+
 .grow {
   flex-grow: 1;
 }
 
 .grid-cols-3 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.grid-cols-1 {
+  grid-template-columns: repeat(1, minmax(0, 1fr));
+}
+
+.grid-rows-3 {
+  grid-template-rows: repeat(3, minmax(0, 1fr));
+}
+
+.grid-rows-12 {
+  grid-template-rows: repeat(12, minmax(0, 1fr));
+}
+
+.flex-row {
+  flex-direction: row;
+}
+
+.flex-col {
+  flex-direction: column;
+}
+
+.items-start {
+  align-items: flex-start;
 }
 
 .justify-end {
@@ -602,6 +683,10 @@ video {
   justify-content: center;
 }
 
+.gap-4 {
+  gap: 1rem;
+}
+
 .py-4 {
   padding-top: 1rem;
   padding-bottom: 1rem;
@@ -610,6 +695,11 @@ video {
 .text-4xl {
   font-size: 2.25rem;
   line-height: 2.5rem;
+}
+
+.text-base {
+  font-size: 1rem;
+  line-height: 1.5rem;
 }
 
 .text-lg {
@@ -635,10 +725,36 @@ video {
   transition-duration: 150ms;
 }
 
+@media not all and (min-width: 1280px) {
+  .max-xl\:grid-rows-12 {
+    grid-template-rows: repeat(12, minmax(0, 1fr));
+  }
+
+  .max-xl\:grid-rows-2 {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media not all and (min-width: 768px) {
+  .max-md\:h-\[400px\] {
+    height: 400px;
+  }
+
+  .max-md\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
+}
+
 @media (min-width: 412px) {
   .xsm\:text-xl {
     font-size: 1.25rem;
     line-height: 1.75rem;
+  }
+
+  .xsm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
   }
 }
 
@@ -647,9 +763,18 @@ video {
     font-size: 1.25rem;
     line-height: 1.75rem;
   }
+
+  .sm\:text-2xl {
+    font-size: 1.5rem;
+    line-height: 2rem;
+  }
 }
 
 @media (min-width: 768px) {
+  .md\:h-\[400px\] {
+    height: 400px;
+  }
+
   .md\:text-2xl {
     font-size: 1.5rem;
     line-height: 2rem;
@@ -660,5 +785,44 @@ video {
   .lg\:text-3xl {
     font-size: 1.875rem;
     line-height: 2.25rem;
+  }
+
+  .lg\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .xl\:text-lg {
+    font-size: 1.125rem;
+    line-height: 1.75rem;
+  }
+}
+
+@media (min-width: 1536px) {
+  .\32xl\:h-\[90\%\] {
+    height: 90%;
+  }
+
+  .\32xl\:auto-rows-auto {
+    grid-auto-rows: auto;
+  }
+
+  .\32xl\:grid-cols-3 {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .\32xl\:grid-rows-2 {
+    grid-template-rows: repeat(2, minmax(0, 1fr));
+  }
+
+  .\32xl\:grid-rows-subgrid {
+    grid-template-rows: subgrid;
+  }
+
+  .\32xl\:text-sm {
+    font-size: 0.875rem;
+    line-height: 1.25rem;
   }
 }

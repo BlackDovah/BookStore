@@ -85,10 +85,10 @@ export function BookDetailsAndPurchase({ book }: BookDetailsAndPurchaseProps) {
 
   return (
     <>
-      <Button onClick={open} variant="filled">
+      <Button onClick={open} variant="filled" className="w-full">
         <Group gap="xs">
-          <IconCreditCard size={18} />
-          <span>Get this book</span>
+          <IconCreditCard className="size-5" />
+          <span className="2xl:text-sm">Get this book</span>
         </Group>
       </Button>
 
