@@ -47,7 +47,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
       <div>
         <Title
           c="#557c3e"
-          className="flex text-4xl lg:text-3xl max-md:text-2xl py-4 mb-8 justify-center"
+          className="flex text-4xl max-lg:text-3xl max-md:text-2xl py-4 mb-8 justify-center"
         >
           Search Results
         </Title>
@@ -81,7 +81,7 @@ export function BooksDisplay({ search, category }: BooksDisplayProps) {
         <div key={genre}>
           <Title
             c="#557c3e"
-            className="flex text-4xl lg:text-3xl max-md:text-2xl py-4 mb-8 justify-center"
+            className="flex text-4xl max-lg:text-3xl max-md:text-2xl py-4 mb-8 justify-center"
           >
             {genre} Books
           </Title>

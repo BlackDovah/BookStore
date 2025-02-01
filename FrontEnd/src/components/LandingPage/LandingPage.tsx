@@ -91,7 +91,7 @@ export function LandingPage() {
               setSelectedCategory(undefined);
             }}
           >
-            <Title className="text-4xl lg:text-3xl max-md:text-2xl">
+            <Title className="text-4xl max-lg:text-3xl max-md:text-2xl">
               Mightier Than The Sword
             </Title>
           </button>
@@ -145,7 +145,7 @@ export function LandingPage() {
             />
             <Title
               c="#557c3e"
-              className="text-4xl lg:text-3xl max-md:text-2xl mt-8 mb-8 justify-center"
+              className="text-4xl max-lg:text-3xl max-md:text-2xl mt-8 mb-8 justify-center"
             >
               Featured Books
             </Title>
@@ -163,7 +163,7 @@ export function LandingPage() {
           <AppShell.Footer style={styles} p="md">
             <Center>
               <Text>
-                ©2024 BlackDovah's Book Store | Made with react | tailwindCSS |
+                ©2025 Mightier Than The Sword | Made with react | tailwindCSS |
                 Mantine.
               </Text>
             </Center>
