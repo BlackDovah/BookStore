@@ -87,8 +87,8 @@ export function BookDetailsAndPurchase({ book }: BookDetailsAndPurchaseProps) {
     <>
       <Button onClick={open} variant="filled" className="w-full">
         <Group gap="xs">
-          <IconCreditCard className="size-5" />
-          <span className="2xl:text-sm">Get this book</span>
+          <IconCreditCard className="size-5 max-sm:size-0 xsm:px-0" />
+          <span className="text-sm max-xl:text-xs">Get this book</span>
         </Group>
       </Button>
 

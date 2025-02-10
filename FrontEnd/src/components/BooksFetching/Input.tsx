@@ -1,5 +1,14 @@
 import { useState, useEffect } from "react";
-import { TextInput, Popover, Box, Text } from "@mantine/core";
+import {
+  TextInput,
+  Popover,
+  Box,
+  Text,
+  Image,
+  ScrollArea,
+  Group,
+  CloseButton,
+} from "@mantine/core";
 import { fetchBooksByKeyWord } from "@/services/api";
 import { TextInputProps, Book } from "@/types/books";
 
@@ -48,6 +57,13 @@ export function Input({
     );
   };
 
+  const Close = (
+    <CloseButton
+      aria-label="Empty Search Field"
+      onClick={() => onSearchChange("")}
+    />
+  );
+
   return (
     <Popover
       width="target"
@@ -57,7 +73,8 @@ export function Input({
     >
       <Popover.Target>
         <TextInput
-          w="13%"
+          className="w-[245px] max-md:w-full"
+          rightSection={Close}
           value={searchQuery}
           placeholder="search by title, author, ISBN"
           onChange={(e) => {
@@ -73,44 +90,55 @@ export function Input({
         />
       </Popover.Target>
       <Popover.Dropdown>
-        <Box>
-          {books !== null ? (
-            books.map((book, index) => (
-              <Text
-                key={index}
-                size="sm"
-                onClick={() => {
-                  const field = book.field;
-                  const value = book[field];
-                  onSearchChange(value as string);
-                  onSearchSubmit(value);
-                  setOpened(false);
-                }}
-                style={{
-                  cursor: "pointer",
-                  padding: "4px 8px",
-                  borderRadius: "4px",
-                  backgroundColor: "transparent",
-                }}
-                onMouseEnter={(e) =>
-                  (e.currentTarget.style.backgroundColor = "#f0f0f0")
-                }
-                onMouseLeave={(e) =>
-                  (e.currentTarget.style.backgroundColor = "transparent")
-                }
-              >
-                {highlightKeyword(book.title, searchQuery)} -{" "}
-                <span className="text-cyan-500">
-                  by {highlightKeyword(book.author, searchQuery)}
-                </span>
+        <ScrollArea type="hover">
+          <Box className="max-h-[300px]">
+            {books !== null ? (
+              books.map((book, index) => (
+                <Group
+                  gap="xs"
+                  grow
+                  preventGrowOverflow={false}
+                  wrap="nowrap"
+                  key={index}
+                  onClick={() => {
+                    onSearchChange(book.title);
+                    onSearchSubmit(book.title);
+                    setOpened(false);
+                  }}
+                  style={{
+                    cursor: "pointer",
+                    padding: "4px 8px",
+                    borderRadius: "4px",
+                    backgroundColor: "transparent",
+                  }}
+                  onMouseEnter={(e) =>
+                    (e.currentTarget.style.backgroundColor = "#f0f0f0")
+                  }
+                  onMouseLeave={(e) =>
+                    (e.currentTarget.style.backgroundColor = "transparent")
+                  }
+                >
+                  <Image
+                    src={book.img}
+                    alt={book.title}
+                    fit="contain"
+                    className="w-[40px] h-[40px]"
+                  />
+                  <Text size="sm">
+                    {highlightKeyword(book.title, searchQuery)} -{" "}
+                    <span className="text-cyan-500">
+                      by {highlightKeyword(book.author, searchQuery)}
+                    </span>
+                  </Text>
+                </Group>
+              ))
+            ) : (
+              <Text size="sm" color="dimmed">
+                No matches found
               </Text>
-            ))
-          ) : (
-            <Text size="sm" color="dimmed">
-              No matches found
-            </Text>
-          )}
-        </Box>
+            )}
+          </Box>
+        </ScrollArea>
       </Popover.Dropdown>
     </Popover>
   );
