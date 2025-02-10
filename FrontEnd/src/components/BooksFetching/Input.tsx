@@ -26,7 +26,10 @@ export function Input({
   }, [searchQuery]);
   Array.isArray(books);
 
-  const highlightKeyword = (text: string, keyword: string | number | undefined) => {
+  const highlightKeyword = (
+    text: string,
+    keyword: string | number | undefined
+  ) => {
     if (!keyword) {
       return text;
     }
@@ -72,7 +75,7 @@ export function Input({
       <Popover.Dropdown>
         <Box>
           {books !== null ? (
-            books.map((book, index) => (              
+            books.map((book, index) => (
               <Text
                 key={index}
                 size="sm"
@@ -96,7 +99,10 @@ export function Input({
                   (e.currentTarget.style.backgroundColor = "transparent")
                 }
               >
-                {highlightKeyword(book[book.field] as string, searchQuery)}
+                {highlightKeyword(book.title, searchQuery)} -{" "}
+                <span className="text-cyan-500">
+                  by {highlightKeyword(book.author, searchQuery)}
+                </span>
               </Text>
             ))
           ) : (
